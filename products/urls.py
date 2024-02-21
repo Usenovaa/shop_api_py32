@@ -7,7 +7,7 @@ router = DefaultRouter()
 router.register('products', ProductViewSet)
 router.register('categories', CategoryViewSet)
 
-print(router.urls)
+# print(router.urls)
 
 urlpatterns = [
     path('', include(router.urls))
