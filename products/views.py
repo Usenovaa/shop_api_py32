@@ -2,23 +2,24 @@ from rest_framework.viewsets import ModelViewSet
 from .models import Category, Product
 from .serializers import ProductListSerializer, ProductSerializer, CategorySerializer
 from rest_framework import generics
-
-# class CategoryView(generics.ListCreateAPIView):
-#     queryset = Category.objects.all()
-#     serializer_class = CategorySerializer
+from rest_framework.permissions import AllowAny, IsAdminUser
 
 
-# class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Category.objects.all()
-#     serializer_class = CategorySerializer
+class PermissionMixin:
+    def get_permissions(self):
+        if self.action in ('retrieve', 'list'):
+            permissions = [AllowAny]
+        else:
+            permissions = [IsAdminUser]
+        return [permission() for permission in permissions]
 
     
-class CategoryViewSet(ModelViewSet):
+class CategoryViewSet(PermissionMixin, ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     
 
-class ProductViewSet(ModelViewSet):
+class ProductViewSet(PermissionMixin, ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 

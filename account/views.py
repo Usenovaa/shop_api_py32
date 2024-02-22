@@ -23,3 +23,4 @@ class ActivateView(APIView):
         return Response('Activated', 200)
 
 
+

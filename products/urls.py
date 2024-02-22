@@ -3,6 +3,7 @@ from django.urls import path, include
 from .views import CategoryViewSet, ProductViewSet
 
 
+
 router = DefaultRouter()
 router.register('products', ProductViewSet)
 router.register('categories', CategoryViewSet)
