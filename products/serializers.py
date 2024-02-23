@@ -10,6 +10,12 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        # representation['images'] = ProductImageSerializer(instance.images.all(), many=True).data
+        representation['images'] = ProductImg(instance.images.all(), many=True).data
+        return representation
+
 
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,4 +32,11 @@ class CategorySerializer(serializers.ModelSerializer):
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
-        fields = '__all__'
+        fields = '__all__' 
+
+
+class ProductImg(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = 'image',
+    

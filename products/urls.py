@@ -3,12 +3,10 @@ from django.urls import path, include
 from .views import CategoryViewSet, ProductViewSet, ProductImageView
 
 
-
 router = DefaultRouter()
 router.register('products', ProductViewSet)
 router.register('categories', CategoryViewSet)
 
-# print(router.urls)
 
 urlpatterns = [
     path('products/add-product-image/', ProductImageView.as_view()),
