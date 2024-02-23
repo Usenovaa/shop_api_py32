@@ -1,6 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
-from .models import Category, Product
-from .serializers import ProductListSerializer, ProductSerializer, CategorySerializer
+from .models import Category, Product, ProductImage
+from .serializers import ProductListSerializer, ProductSerializer, CategorySerializer, ProductImageSerializer
 from rest_framework import generics
 from rest_framework.permissions import AllowAny, IsAdminUser
 
@@ -29,7 +29,12 @@ class ProductViewSet(PermissionMixin, ModelViewSet):
         return self.serializer_class
         
 
+class ProductImageView(generics.CreateAPIView):
+    queryset = ProductImage.objects.all()
+    serializer_class = ProductImageSerializer
+    permission_classes = [IsAdminUser]
 
+    
 
 
 
